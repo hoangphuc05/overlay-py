@@ -2,6 +2,7 @@
 
 
 
+from xmlrpc.client import Boolean
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QWidget, QGridLayout, QSpacerItem, QBoxLayout, QHBoxLayout
@@ -79,6 +80,13 @@ class MainWindow(QMainWindow):
         # fill up the rest of column with empty space
         # for i in range(COLUMN_COUNT, len(self.char_widget), -1):
         #     self.m_layout.addItem(QSpacerItem(177, 100, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding))
+
+    def hide_window(self, flag: bool):
+        """Hide or show the main window"""
+        if flag:
+            self.hide()
+        else:
+            self.show()
 
     def quit(self):
         """Exit the window."""
