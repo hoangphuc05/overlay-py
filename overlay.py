@@ -11,7 +11,7 @@ from pynput import keyboard
 COLUMN_COUNT = 5
 
 # https://stackoverflow.com/questions/56483841/error-while-changing-qobject-stylesheet-in-a-thread
-class AnimationLabel(QLabel):
+class DisappearingLabel(QLabel):
     redrawEvent = pyqtSignal()
     def __init__(self, *args, **kwargs):
         QLabel.__init__(self, *args, **kwargs)
@@ -129,8 +129,10 @@ class MainWindow(QMainWindow):
 
     def mousePressEvent(self, event):
         if event.buttons() & Qt.LeftButton:
+            self.show()
             self.diffX = self.pos().x() - event.globalPos().x()
             self.diffY = self.pos().y() - event.globalPos().y()
+        
 
     def mouseMoveEvent(self, event):
         if event.buttons() & Qt.LeftButton:
@@ -139,7 +141,7 @@ class MainWindow(QMainWindow):
 
     def addLabel(self, key):
         print(key)
-        localWidget = AnimationLabel(self)
+        localWidget = DisappearingLabel(self)
         localWidget.setFixedSize(150, 150)
         localWidget.setAlignment(Qt.AlignCenter)
         localWidget.setStyleSheet(styleBase.format(QColor(0,0,0, 200).getRgb(), QColor(255, 255, 255, 255).getRgb() ))
