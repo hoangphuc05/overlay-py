@@ -1,12 +1,13 @@
 """Module allow access to MainWindow class"""
 
 
+from os import path
 
 from xmlrpc.client import Boolean
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QWidget, QGridLayout, QSpacerItem, QBoxLayout, QHBoxLayout
-from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QColor, QIcon
 from PyQt5.QtCore import Qt
 
 from disappearing_label import DisappearingLabel
@@ -18,6 +19,8 @@ class MainWindow(QMainWindow):
     diff_y = 0
     def __init__(self):
         QMainWindow.__init__(self)
+        bundle_dir = path.abspath(path.dirname(__file__))
+        self.setWindowIcon(QIcon(path.join(bundle_dir, 'small.ico')))
         self.char_history = []
         self.char_widget = []
         self.setWindowFlags(

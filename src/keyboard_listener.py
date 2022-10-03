@@ -1,10 +1,10 @@
 """Module provide access to the keyboard listener"""
 import sys
+from os import path
 import threading
 from types import NoneType
 from pynput import keyboard
 from infi.systray import SysTrayIcon
-
 from PyQt5 import QtGui, QtCore, uic
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QGridLayout, QLabel, QSpacerItem
@@ -38,8 +38,9 @@ class KeyboardListener(QObject):
         self.app.exec_()
 
     def create_systray_icon(self):
+        bundle_dir = path.abspath(path.dirname(__file__))
         menu_options = (("Start Overlay", None, self.show_overlay), ("Hide Overlay", None, self.hide_overlay))
-        self.systray = SysTrayIcon('small.ico',"Overlay Py", menu_options, on_quit=self.quit_systray_callback)
+        self.systray = SysTrayIcon(path.join(bundle_dir, 'small.ico'),"Overlay Py", menu_options, on_quit=self.quit_systray_callback)
         systray_thread = threading.Thread(target=self.systray.start)
         systray_thread.start()
 
@@ -57,16 +58,16 @@ class KeyboardListener(QObject):
         # get VK
         vk = getattr(key, 'vk', -1)
 
-        if vk == 81:
-            # show the mainwindow
-            self.hideWindow.emit(False)
-        if vk == 87:
-            # show the mainwindow
-            self.hideWindow.emit(True)
+        # if vk == 81:
+        #     # show the mainwindow
+        #     self.hideWindow.emit(False)
+        # if vk == 87:
+        #     # show the mainwindow
+        #     self.hideWindow.emit(True)
 
-        if key == keyboard.Key.esc:
-            self.mywindow.quit()
-            return False  # stop listener
+        # if key == keyboard.Key.esc:
+        #     self.mywindow.quit()
+        #     return False  # stop listener
         try:
             k = key.char  # single-char keys
         except:
