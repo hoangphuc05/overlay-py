@@ -38,8 +38,6 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: pyinstaller ./main.spec
   publish-github-release:
-    requires:
-      - build
     docker:
       - image: cibuilds/github:0.10
     steps:
